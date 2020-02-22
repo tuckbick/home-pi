@@ -48,13 +48,47 @@ sudo raspi-config
 ```
 Then navigate to Network Options -> Hostname. Set the hostname. Finish -> Reboot.
 
-## Configure Pi as a Time Capsule for your Mac
+## Partition external drive
+```bash
+sudo parted
+print
+mktable gpt
+print
+mkpart logical hfs+ 0% 50%
+mkpart logical fat32 50% 100%
+name 1 tm
+name 2 share
+print
+```
 
-### Partition Disk
-Add an hfs+ partition by following along with these guides:
+## Make filesystem on partitions
+```bash
+sudo apt install hfsutils hfsprogs
+sudo mkfs.hfsplus /dev/sda1 -v tm
+sudo mkfs.vfat /dev/sda2 -n share
+```
+
+## Create mount points
+```bash
+sudo mkdir /media/tm && sudo chmod -R 777 /media/tm && sudo chown pi:pi /media/tm
+sudo mkdir /media/share && sudo chmod -R 777 /media/share && sudo chown pi:pi /media/share
+```
+
+### Get disk by UUID
+Find the UUID for each partition
+```bash
+ls -lha /dev/disk/by-uuid
+```
+Add an entry to `/etc/fstab`:
+```
+UUID=<tm-uuid> /media/tm hfsplus force,rw,user,noauto 0 0
+UUID=<tm-uuid> /media/tm vfat owner,utf8,rw,user,umask=000 0 0
+```
+
+----------
+
+## Resources
 * https://www.calebwoods.com/2015/04/06/diy-time-capsule-raspberry-pi/
 * https://blog.hqcodeshop.fi/archives/273-GNU-Parted-Solving-the-dreaded-The-resulting-partition-is-not-properly-aligned-for-best-performance.html
-
-### Set up Time Capsule
-Following along with this guide: https://gregology.net/2018/09/raspberry-pi-time-machine/  
-Learn more about fstab here: https://linoxide.com/file-system/understanding-each-entry-of-linux-fstab-etcfstab-file/
+* https://gregology.net/2018/09/raspberry-pi-time-machine/  
+* https://linoxide.com/file-system/understanding-each-entry-of-linux-fstab-etcfstab-file/
