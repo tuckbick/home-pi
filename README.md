@@ -56,5 +56,5 @@ Add an hfs+ partition by following along with these guides:
 * https://blog.hqcodeshop.fi/archives/273-GNU-Parted-Solving-the-dreaded-The-resulting-partition-is-not-properly-aligned-for-best-performance.html
 
 ### Set up Time Capsule
-Following along with this guide: https://gregology.net/2018/09/raspberry-pi-time-machine/
+Following along with this guide: https://gregology.net/2018/09/raspberry-pi-time-machine/  
 Learn more about fstab here: https://linoxide.com/file-system/understanding-each-entry-of-linux-fstab-etcfstab-file/
