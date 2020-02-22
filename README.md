@@ -12,7 +12,7 @@
     ```
 2) Configure WiFi:
     ```bash
-    sudo vi /etc/wpa_supplicant/wpa_supplicant.conf
+    sudo vi wpa_supplicant.conf
     ```
     Add this and set your network name/password:
     ```
@@ -27,9 +27,34 @@
 
 ## Boot and connect via SSH
 1) Power up the Raspberry Pi
-2) Find the IP address of the Raspberry Pi via your router
+2) After waiting a minute or so for the Pi to start up, find its IP via your router console
 3) Connect via SSH:
     ```bash
-    ssh pi@192.168.86.2
+    ssh pi@<ip-address>
     // Use the default password 'raspberry'
     ```
+    
+## Update and restart
+```bash
+sudo apt update
+sudo apt upgrade -y
+sudo reboot now
+ssh pi@<ip-address>
+```
+
+## Set custom hostname
+```bash
+sudo raspi-config
+```
+Then navigate to Network Options -> Hostname. Set the hostname. Finish -> Reboot.
+
+## Configure Pi as a Time Capsule for your Mac
+
+### Partition Disk
+Add an hfs+ partition by following along with these guides:
+* https://www.calebwoods.com/2015/04/06/diy-time-capsule-raspberry-pi/
+* https://blog.hqcodeshop.fi/archives/273-GNU-Parted-Solving-the-dreaded-The-resulting-partition-is-not-properly-aligned-for-best-performance.html
+
+### Set up Time Capsule
+Following along with this guide: https://gregology.net/2018/09/raspberry-pi-time-machine/
+Learn more about fstab here: https://linoxide.com/file-system/understanding-each-entry-of-linux-fstab-etcfstab-file/
