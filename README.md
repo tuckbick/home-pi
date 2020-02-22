@@ -79,7 +79,7 @@ Find the UUID for each partition
 ```bash
 ls -lha /dev/disk/by-uuid
 ```
-Add an entry to `/etc/fstab`:
+Add two entries to `/etc/fstab`:
 ```
 UUID=<tm-uuid> /media/tm hfsplus force,rw,user,noauto 0 0
 UUID=<tm-uuid> /media/tm vfat owner,utf8,rw,user,umask=000 0 0
