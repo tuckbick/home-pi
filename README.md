@@ -54,7 +54,7 @@ sudo parted
 print
 mktable gpt
 print
-mkpart logical hfs+ 0% 50%
+mkpart logical hfs+  0%  50%
 mkpart logical fat32 50% 100%
 name 1 tm
 name 2 share
@@ -65,12 +65,12 @@ print
 ```bash
 sudo apt install hfsutils hfsprogs
 sudo mkfs.hfsplus /dev/sda1 -v tm
-sudo mkfs.vfat /dev/sda2 -n share
+sudo mkfs.vfat    /dev/sda2 -n share
 ```
 
 ## Create mount points
 ```bash
-sudo mkdir /media/tm && sudo chmod -R 777 /media/tm && sudo chown pi:pi /media/tm
+sudo mkdir /media/tm    && sudo chmod -R 777 /media/tm    && sudo chown pi:pi /media/tm
 sudo mkdir /media/share && sudo chmod -R 777 /media/share && sudo chown pi:pi /media/share
 ```
 
@@ -81,8 +81,8 @@ ls -lha /dev/disk/by-uuid
 ```
 Add two entries to `/etc/fstab`:
 ```
-UUID=<tm-uuid> /media/tm hfsplus force,rw,user,noauto 0 0
-UUID=<tm-uuid> /media/tm vfat owner,utf8,rw,user,umask=000 0 0
+UUID=<tm-uuid> /media/tm    hfsplus force,rw,user,noauto  0 0
+UUID=<tm-uuid> /media/share	vfat    rw,user,uid=pi,gid=pi 0 0
 ```
 
 ----------
