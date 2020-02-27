@@ -81,8 +81,8 @@ ls -lha /dev/disk/by-uuid
 ```
 Add two entries to `/etc/fstab`:
 ```
-UUID=<tm-uuid> /media/tm    hfsplus force,rw,user,noauto  0 0
-UUID=<tm-uuid> /media/share vfat    rw,user,uid=pi,gid=pi 0 0
+UUID=<tm-uuid>    /media/tm    hfsplus force,rw,user,noauto  0 0
+UUID=<share-uuid> /media/share vfat    rw,user,uid=pi,gid=pi 0 0
 ```
 
 ----------
