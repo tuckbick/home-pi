@@ -48,6 +48,13 @@ sudo raspi-config
 ```
 Then navigate to Network Options -> Hostname. Set the hostname. Finish -> Reboot.
 
+## Pi-Hole
+
+```bash
+curl -sSL https://install.pi-hole.net | sudo bash
+sudo pihole -a -p
+```
+
 ## Partition external drive
 ```bash
 sudo parted
