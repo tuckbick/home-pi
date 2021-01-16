@@ -131,6 +131,26 @@ services:
     network_mode: host
 ```
 
+## Set up ESPHome
+```bash
+sudo apt install python3-pip
+pip3 install esphome tornado esptool
+docker pull esphome/esphome
+```
+Docker compose file:
+```yaml
+version: '2'
+services:
+  homeassistant:
+    container_name: esphome
+    image: esphome/esphome:latest
+    volumes:
+      - /home/pi/esphome_config:/config
+    restart: always
+    network_mode: host
+```
+
+
 
 ----------
 
@@ -141,3 +161,4 @@ services:
 * https://linoxide.com/file-system/understanding-each-entry-of-linux-fstab-etcfstab-file/
 * https://www.wundertech.net/portainer-raspberry-pi-install-how-to-install-docker-and-portainer/
 * https://www.home-assistant.io/docs/installation/docker/
+* https://esphome.io/guides/getting_started_command_line.html
