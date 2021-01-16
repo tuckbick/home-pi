@@ -120,7 +120,7 @@ Docker compose file:
 version: '2'
 services:
   homeassistant:
-    container_name: home-assistant
+    container_name: homeassistant
     image: homeassistant/home-assistant:stable
     volumes:
       - /home/pi/homeassistant_config:/config
@@ -141,7 +141,7 @@ Docker compose file:
 ```yaml
 version: '2'
 services:
-  homeassistant:
+  esphome:
     container_name: esphome
     image: esphome/esphome:latest
     volumes:
@@ -150,6 +150,20 @@ services:
     network_mode: host
 ```
 
+## Set up AirConnect
+```bash
+docker pull 1activegeek/airconnect:latest-arm64
+```
+Docker compose file:
+```yaml
+version: '2'
+services:
+  airconnect:
+    container_name: airconnect
+    image: 1activegeek/airconnect:latest-arm64
+    restart: always
+    network_mode: host
+```
 
 
 ----------
@@ -162,3 +176,4 @@ services:
 * https://www.wundertech.net/portainer-raspberry-pi-install-how-to-install-docker-and-portainer/
 * https://www.home-assistant.io/docs/installation/docker/
 * https://esphome.io/guides/getting_started_command_line.html
+* https://github.com/1activegeek/docker-airconnect
