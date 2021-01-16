@@ -47,17 +47,32 @@ sudo raspi-config
 Then navigate to Network Options -> Hostname. Set the hostname.
 
 ## Rebot and login
-```
+```bash
 sudo reboot now
 ssh pi@<hostname>
 ```
 
-## Pi-Hole
-
+## Install Docker
 ```bash
-curl -sSL https://install.pi-hole.net | sudo bash
-sudo pihole -a -p
+curl -sSL https://get.docker.com | sh
 ```
+
+### Give `pi` user account access
+```bash
+sudo usermod -aG docker pi
+sudo reboot now
+```
+
+## Install Portainer
+```bash
+docker pull portainer/portainer-ce:latest
+```
+
+### Create and run Portainer container
+```bash
+docker run --restart always -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+```
+Open `http://<hostname>:9000` in a browser.
 
 ## Partition external drive
 ```bash
@@ -92,9 +107,30 @@ ls -lha /dev/disk/by-uuid
 ```
 Add two entries to `/etc/fstab`:
 ```
-UUID=<tm-uuid>    /media/tm    hfsplus force,rw,user,noauto  0 0
-UUID=<share-uuid> /media/share vfat    rw,user,uid=pi,gid=pi 0 0
+UUID=<tm-uuid>    /media/tm    hfsplus force,rw,user,noauto       0 0
+UUID=<share-uuid> /media/share auto    auto,rw,user,uid=pi,gid=pi 0 0
 ```
+
+## Set up HomeAssistant
+```bash
+docker pull homeassistant/home-assistant:stable
+```
+Docker compose file:
+```yaml
+version: '2'
+services:
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable
+    volumes:
+      - /home/pi/homeassistant_config:/config
+      - /media/share:/media
+    environment:
+      - TZ=America/Denver
+    restart: always
+    network_mode: host
+```
+
 
 ----------
 
@@ -103,3 +139,5 @@ UUID=<share-uuid> /media/share vfat    rw,user,uid=pi,gid=pi 0 0
 * https://blog.hqcodeshop.fi/archives/273-GNU-Parted-Solving-the-dreaded-The-resulting-partition-is-not-properly-aligned-for-best-performance.html
 * https://gregology.net/2018/09/raspberry-pi-time-machine/  
 * https://linoxide.com/file-system/understanding-each-entry-of-linux-fstab-etcfstab-file/
+* https://www.wundertech.net/portainer-raspberry-pi-install-how-to-install-docker-and-portainer/
+* https://www.home-assistant.io/docs/installation/docker/
