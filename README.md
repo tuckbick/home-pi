@@ -160,11 +160,36 @@ version: '2'
 services:
   airconnect:
     container_name: airconnect
-    image: 1activegeek/airconnect:latest-arm64
+    image: 1activegeek/airconnect:latest
     restart: always
     network_mode: host
 ```
 
+## Set up Plex
+```bash
+docker pull ghcr.io/linuxserver/plex
+```
+Docker compose file:
+```yaml
+version: "2.1"
+services:
+  plex:
+    image: ghcr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - UMASK_SET=022 #optional
+      - PLEX_CLAIM=claim-HM2W-QnoqFHDLN7RKsnV
+    volumes:
+      - /home/pi/plex_config:/config
+      - /media/share/tv:/tv
+      - /media/share/movies:/movies
+    restart: always
+```
 
 ----------
 
@@ -177,3 +202,4 @@ services:
 * https://www.home-assistant.io/docs/installation/docker/
 * https://esphome.io/guides/getting_started_command_line.html
 * https://github.com/1activegeek/docker-airconnect
+* https://hub.docker.com/r/linuxserver/plex
