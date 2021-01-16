@@ -183,7 +183,7 @@ services:
       - PGID=1000
       - VERSION=docker
       - UMASK_SET=022 #optional
-      - PLEX_CLAIM=claim-HM2W-QnoqFHDLN7RKsnV
+      - PLEX_CLAIM= # https://www.plex.tv/claim/
     volumes:
       - /home/pi/plex_config:/config
       - /media/share/tv:/tv
