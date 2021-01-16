@@ -34,19 +34,23 @@
     // Use the default password 'raspberry'
     ```
     
-## Update and restart
+## Update libraries
 ```bash
 sudo apt update
 sudo apt upgrade -y
-sudo reboot now
-ssh pi@<ip-address>
 ```
 
 ## Set custom hostname
 ```bash
 sudo raspi-config
 ```
-Then navigate to Network Options -> Hostname. Set the hostname. Finish -> Reboot.
+Then navigate to Network Options -> Hostname. Set the hostname.
+
+## Rebot and login
+```
+sudo reboot now
+ssh pi@<hostname>
+```
 
 ## Pi-Hole
 
