@@ -90,7 +90,7 @@ print
 ## Make filesystem on partitions
 ```bash
 sudo apt install hfsutils hfsprogs
-sudo mkfs.hfsplus /dev/sda1 -v tm
+sudo mkfs.hfsplus /dev/sda1 -n tm
 sudo mkfs.vfat    /dev/sda2 -n share
 ```
 
