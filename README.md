@@ -125,6 +125,7 @@ services:
     volumes:
       - /home/pi/homeassistant_config:/config
       - /media/share:/media
+      - /etc/localtime:/etc/localtime
     environment:
       - TZ=America/Denver
     restart: always
@@ -146,6 +147,7 @@ services:
     image: esphome/esphome:latest
     volumes:
       - /home/pi/esphome_config:/config
+      - /etc/localtime:/etc/localtime
     restart: always
     network_mode: host
 ```
@@ -161,6 +163,8 @@ services:
   airconnect:
     container_name: airconnect
     image: 1activegeek/airconnect:latest
+    volumes:
+      - /etc/localtime:/etc/localtime
     restart: always
     network_mode: host
 ```
@@ -185,10 +189,31 @@ services:
       - UMASK_SET=022 #optional
       - PLEX_CLAIM= # https://www.plex.tv/claim/
     volumes:
+      - /etc/localtime:/etc/localtime
       - /home/pi/plex_config:/config
       - /media/share/tv:/tv
       - /media/share/movies:/movies
     restart: always
+```
+
+## Set up Dogecoin node
+```bash
+docker pull tuckbick/dogecoin
+```
+Docker compose file:
+```yaml
+version: "2"
+services:
+  dogecoin:
+    container_name: dogecoin
+    image: tuckbick/dogecoin:latest
+    ports:
+      - 22556:22556
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /my/dir/.dogecoin:/root/.dogecoin
+    restart: always
+    network_mode: host
 ```
 
 ----------
