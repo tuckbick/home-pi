@@ -216,6 +216,33 @@ services:
     network_mode: host
 ```
 
+## Set up qBittorrent
+```bash
+docker pull ghcr.io/linuxserver/qbittorrent:latest
+```
+Docker compose file:
+```yaml
+version: "2"
+services:
+  dogecoin:
+    container_name: qbittorrent
+    image: ghcr.io/linuxserver/qbittorrent:latest
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8080:8080
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - WEBUI_PORT=8080
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /path/to/appdata/config:/config
+      - /path/to/downloads:/downloads
+    restart: always
+```
+
 ----------
 
 ## Resources
